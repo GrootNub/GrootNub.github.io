@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Harshit Dhawan · Unity & Unreal Game Developer">
+<meta property="og:description" content="13 published games on Fire TV, Apple TV, Roku and Google Play, plus 49 hyper-casual games from Verinag Studios.">
+<meta property="og:image" content="videos/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Harshit Dhawan · Unity Developer</title>
+<meta name="description" content="Harshit Dhawan, Unity game developer: casual and hyper-casual games for mobile, web and smart TV.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a hero split between the pitch and a working "Build Settings" window, then a build-log timeline, project tiles, skills and contact. */
+:root {
+  --bg: #F3F4F8;
+  --surface: #FFFFFF;
+  --surface-2: #E8EAF1;
+  --fg: #171A2B;
+  --muted: #5A6077;
+  --line: #D4D7E2;
+  --accent: #FF5F2E;
+  --accent-ink: #FFFFFF;
+  --mint: #0E9E86;
+  --sun: #F2B705;
+  --sky: #3F6BFF;
+  --win-bar: #2A2E42;
+  --win-bar-fg: #E7E9F2;
+  --font-display: "Unbounded", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1020; --surface: #171A2E; --surface-2: #20243B; --fg: #ECEEF6; --muted: #A2A8C0;
+    --line: #2D3250; --accent: #FF7A4D; --accent-ink: #1A0E08; --mint: #2CCFB1; --sun: #FFCB3D; --sky: #7D9BFF;
+    --win-bar: #252A44; --win-bar-fg: #E7E9F2; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1020; --surface: #171A2E; --surface-2: #20243B; --fg: #ECEEF6; --muted: #A2A8C0;
+  --line: #2D3250; --accent: #FF7A4D; --accent-ink: #1A0E08; --mint: #2CCFB1; --sun: #FFCB3D; --sky: #7D9BFF;
+  --win-bar: #252A44; --win-bar-fg: #E7E9F2; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- Nav ---------- */
+.nav { padding-block: 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.mark { font-family: var(--font-display); font-weight: 800; font-size: 18px; letter-spacing: -0.01em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.mark i { width: 22px; height: 22px; border-radius: 6px; background: var(--accent); display: inline-block; transform: rotate(12deg); box-shadow: 6px 6px 0 -1px var(--sun); }
+.nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; flex-wrap: wrap; }
+.nav ul a { text-decoration: none; font-weight: 600; font-size: 15px; color: var(--muted); }
+.nav ul a:hover { color: var(--fg); }
+
+/* ---------- Hero ---------- */
+.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding-block: 36px 72px; }
+.hero > * { min-width: 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mint); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+.eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px color-mix(in srgb, var(--mint) 22%, transparent); }
+h1 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(40px, 6.4vw, 72px); line-height: 1.0; letter-spacing: -0.03em;
+  margin: 18px 0 20px; text-wrap: balance;
+}
+h1 .hl { color: var(--accent); }
+.lede { font-size: 19px; color: var(--muted); max-width: 34ch; margin: 0 0 28px; }
+.lede strong { color: var(--fg); font-weight: 600; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 13px 20px; border-radius: 999px; text-decoration: none; border: 2px solid var(--fg); display: inline-flex; align-items: center; gap: 8px; cursor: pointer; background: transparent; color: var(--fg); transition: transform .15s ease; }
+.btn:hover { transform: translateY(-2px); }
+.btn.primary { background: var(--fg); color: var(--bg); }
+
+.stats { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 32px; margin-top: 40px; }
+.stat b { display: block; font-family: var(--font-display); font-size: 34px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; color: var(--muted); line-height: 1.35; display: block; margin-top: 8px; max-width: 14ch; }
+
+/* ---------- Build Settings window ---------- */
+.window { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(20, 24, 50, .35), 14px 14px 0 0 var(--sun); }
+.win-bar { background: var(--win-bar); color: var(--win-bar-fg); display: flex; align-items: center; gap: 8px; padding: 10px 14px; font-family: var(--font-mono); font-size: 12px; }
+.win-bar .dots { display: flex; gap: 6px; margin-right: 6px; }
+.win-bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: #FF5F57; display: block; }
+.win-bar .dots i:nth-child(2) { background: #FEBC2E; }
+.win-bar .dots i:nth-child(3) { background: #28C840; }
+.win-body { display: grid; grid-template-columns: 200px 1fr; min-height: 340px; }
+.win-body > * { min-width: 0; }
+.platforms { border-right: 1px solid var(--line); background: var(--surface-2); padding: 10px 0; }
+.platforms h3, .detail h3 { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 4px 14px 8px; }
+.plat { width: 100%; display: flex; align-items: center; gap: 10px; padding: 9px 14px; border: 0; background: transparent; color: var(--fg); font: 500 14px var(--font-body); text-align: left; cursor: pointer; }
+.plat:hover { background: color-mix(in srgb, var(--fg) 6%, transparent); }
+.plat[aria-selected="true"] { background: var(--sky); color: #fff; }
+.plat .ico { width: 18px; height: 18px; flex: none; display: grid; place-items: center; }
+.plat .ico svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.plat .tick { margin-left: auto; font-family: var(--font-mono); font-size: 11px; opacity: .7; }
+.detail { padding: 16px 20px 18px; display: flex; flex-direction: column; gap: 14px; }
+.detail .pname { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -0.01em; margin: 0; }
+.detail .pdesc { margin: 0; color: var(--muted); font-size: 15px; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 14px; margin: 0; }
+.kv dt { font-family: var(--font-mono); font-size: 12px; color: var(--muted); padding-top: 2px; }
+.kv dd { margin: 0; font-weight: 500; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--font-mono); font-size: 12px; padding: 4px 9px; border-radius: 999px; background: color-mix(in srgb, var(--mint) 14%, transparent); color: var(--mint); font-weight: 600; }
+.build-row { margin-top: auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.build-row .btn { padding: 9px 16px; font-size: 14px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.bar { flex: 1; min-width: 120px; height: 8px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--mint), var(--sky)); border-radius: inherit; }
+.log { font-family: var(--font-mono); font-size: 12px; color: var(--muted); min-height: 1.6em; margin: 0; }
+
+/* ---------- Sections ---------- */
+section { padding-block: 72px; border-top: 1px solid var(--line); }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; }
+h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 4vw, 42px); letter-spacing: -0.02em; line-height: 1.1; margin: 0; text-wrap: balance; }
+.sec-head p { margin: 0; color: var(--muted); max-width: 46ch; }
+
+/* About */
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.about > * { min-width: 0; }
+.about p { margin: 0 0 16px; font-size: 18px; max-width: 60ch; }
+.about p:first-child { font-size: 22px; line-height: 1.45; font-weight: 500; }
+
+/* Experience: build log */
+.log-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.entry { display: grid; grid-template-columns: 170px 28px 1fr; gap: 0 18px; }
+.entry > * { min-width: 0; }
+.when { font-family: var(--font-mono); font-size: 13px; color: var(--muted); padding-top: 6px; font-variant-numeric: tabular-nums; }
+.rail { position: relative; display: flex; justify-content: center; }
+.rail::before { content: ""; position: absolute; top: 0; bottom: 0; width: 2px; background: var(--line); }
+.entry:first-child .rail::before { top: 12px; }
+.entry:last-child .rail::before { bottom: auto; height: 12px; }
+.rail i { position: relative; margin-top: 8px; width: 14px; height: 14px; border-radius: 4px; background: var(--surface); border: 3px solid var(--accent); transform: rotate(45deg); }
+.entry:nth-child(2) .rail i { border-color: var(--sky); }
+.entry:nth-child(3) .rail i { border-color: var(--mint); }
+.entry:nth-child(4) .rail i { border-color: var(--sun); }
+.job { padding-bottom: 40px; }
+.job h3 { font-family: var(--font-display); font-weight: 700; font-size: 21px; letter-spacing: -0.01em; margin: 0; }
+.job .org { font-weight: 600; color: var(--muted); margin: 2px 0 12px; }
+.job ul { margin: 0 0 12px; padding-left: 18px; max-width: 64ch; }
+.job li { margin-bottom: 6px; }
+.job li::marker { color: var(--accent); }
+
+/* Projects */
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+.thumb { aspect-ratio: 16 / 9; max-width: 100%; position: relative; overflow: hidden; }
+.thumb canvas { width: 100%; height: 100%; display: block; }
+.thumb .tag { position: absolute; left: 14px; top: 14px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; background: rgba(15, 17, 32, .78); color: #fff; padding: 5px 9px; border-radius: 6px; }
+.card-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.card h3 { font-family: var(--font-display); font-weight: 700; font-size: 19px; margin: 0; letter-spacing: -0.01em; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+.card .chips { margin-top: 2px; }
+.slot { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--line); font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.card.feature { grid-column: 1 / -1; flex-direction: row; }
+.card.feature .thumb { flex: 1.15; aspect-ratio: auto; min-height: 280px; }
+.card.feature .card-body { flex: 1; padding: 28px 30px; justify-content: center; }
+.card.feature h3 { font-size: 26px; }
+.card.feature p { font-size: 16px; }
+.card[hidden] { display: none !important; }
+.reel { display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; }
+.reel > * { min-width: 0; }
+.reel-player { border-radius: 16px; overflow: hidden; background: #0E1020; border: 1px solid var(--line); box-shadow: 14px 14px 0 0 var(--sun); }
+.reel-player video { display: block; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #0E1020; }
+.reel-list { display: grid; gap: 12px; }
+.reel-pick { display: grid; grid-template-columns: 112px 1fr; gap: 12px; align-items: center; text-align: left; padding: 8px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; font-family: var(--font-body); }
+.reel-pick img { width: 112px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; display: block; }
+.reel-pick b { display: block; font-family: var(--font-display); font-size: 15px; }
+.reel-pick small { display: block; color: var(--muted); font-size: 13px; line-height: 1.35; margin-top: 2px; }
+.reel-pick[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+@media (max-width: 860px) {
+  .reel { grid-template-columns: 1fr; }
+  .reel-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .reel-pick { grid-template-columns: 1fr; }
+  .reel-pick img { width: 100%; }
+}
+@media (max-width: 520px) { .reel-list { grid-template-columns: 1fr; } .reel-pick { grid-template-columns: 112px 1fr; } .reel-pick img { width: 112px; } }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.meta b { color: var(--fg); font-weight: 600; }
+.store { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 16px; border-radius: 10px; background: var(--fg); color: var(--bg); transition: transform .15s ease; }
+.store:hover { transform: translateY(-2px); }
+.store.ghost { background: transparent; color: var(--fg); border: 2px solid var(--line); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: -12px 0 26px; }
+.filter { font: 600 14px var(--font-body); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.filter[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filter span { font-family: var(--font-mono); font-size: 12px; opacity: .65; margin-left: 4px; }
+@media (max-width: 760px) {
+  .card.feature { flex-direction: column; }
+  .card.feature .thumb { aspect-ratio: 16 / 9; min-height: 0; flex: none; }
+  .card.feature .card-body { padding: 20px 22px 22px; }
+}
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.skill-group { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+.skill-group h3 { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 12px; font-weight: 600; }
+.skill-group ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-group li { font-weight: 600; font-size: 14px; padding: 6px 11px; border-radius: 8px; background: var(--surface-2); }
+.skill-group.lead { grid-column: span 3; display: grid; grid-template-columns: 220px 1fr; gap: 20px; align-items: center; background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.skill-group.lead h3 { color: var(--bg); opacity: .7; margin: 0; }
+.skill-group.lead li { background: color-mix(in srgb, var(--bg) 14%, transparent); font-size: 16px; padding: 8px 14px; }
+.extras { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 22px; }
+.extras > div { min-width: 0; }
+.extras h3 { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 10px; font-weight: 600; }
+.extras ul { margin: 0; padding-left: 18px; }
+.extras li { margin-bottom: 4px; }
+
+/* Contact */
+.contact { background: var(--fg); color: var(--bg); border-radius: 22px; padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: center; }
+.contact > * { min-width: 0; }
+.contact h2 { color: var(--bg); }
+.contact p { color: color-mix(in srgb, var(--bg) 70%, transparent); margin: 14px 0 0; max-width: 40ch; }
+.rows { display: grid; gap: 10px; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 12px; background: color-mix(in srgb, var(--bg) 9%, transparent); }
+.row > div { min-width: 0; }
+.row small { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .6; }
+.row .val { font-weight: 600; overflow-wrap: anywhere; user-select: all; }
+.row a.val { text-decoration: none; user-select: auto; }
+.row a.val:hover { color: var(--accent); }
+.copy { flex: none; font: 600 13px var(--font-body); padding: 8px 12px; border-radius: 8px; border: 1px solid color-mix(in srgb, var(--bg) 30%, transparent); background: transparent; color: var(--bg); cursor: pointer; }
+.copy:hover { border-color: var(--accent); color: var(--accent); }
+
+footer { padding-block: 36px 48px; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer code { font-family: var(--font-mono); font-size: 12px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 920px) {
+  .hero { grid-template-columns: 1fr; gap: 40px; padding-block: 20px 56px; }
+  .about, .contact { grid-template-columns: 1fr; }
+  .skills { grid-template-columns: 1fr 1fr; }
+  .skill-group.lead { grid-column: span 2; grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .win-body { grid-template-columns: 1fr; }
+  .platforms { border-right: 0; border-bottom: 1px solid var(--line); display: flex; overflow-x: auto; padding: 8px; gap: 4px; }
+  .platforms h3 { display: none; }
+  .plat { width: auto; flex: none; border-radius: 8px; padding: 8px 12px; }
+  .plat .tick { display: none; }
+  .grid, .skills, .extras { grid-template-columns: 1fr; }
+  .skill-group.lead { grid-column: auto; }
+  .entry { grid-template-columns: 22px 1fr; gap: 0 14px; }
+  .when { grid-column: 2; grid-row: 1; padding-top: 0; }
+  .rail { grid-column: 1; grid-row: 1 / span 2; }
+  .job { grid-column: 2; }
+  .stats { gap: 20px; }
+  .stat b { font-size: 28px; }
+  .nav ul { gap: 14px; }
+  section { padding-block: 56px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav" aria-label="Main">
+    <a class="mark" href="#top"><i aria-hidden="true"></i>Harshit Dhawan</a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#reels">Reels</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <span class="eyebrow">Unity Game Developer · Kanpur, India</span>
+      <h1>I build games people <span class="hl">tap</span> on phones, browsers and TVs.</h1>
+      <p class="lede">Unity (C#) and Unreal Engine (C++, Blueprints) developer with <strong>4+ years in games</strong> and <strong>6+ years in software</strong>. Casual, hyper-casual and 3D titles, built once and shipped to every screen.</p>
+      <div class="cta">
+        <a class="btn primary" href="#work">See my work</a>
+        <a class="btn" href="https://www.linkedin.com/in/grootnub/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>50+</b><span>games shipped on Google Play</span></div>
+        <div class="stat"><b>7</b><span>build targets, mobile to TV</span></div>
+        <div class="stat"><b>4</b><span>studios and teams</span></div>
+      </div>
+    </div>
+
+    <div class="window" role="region" aria-label="Platforms I ship to">
+      <div class="win-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>Build Settings</div>
+      <div class="win-body">
+        <div class="platforms" role="tablist" aria-label="Platform" id="plist">
+          <h3>Platform</h3>
+        </div>
+        <div class="detail" role="tabpanel" id="pdetail" aria-live="polite">
+          <h3>Selected target</h3>
+          <p class="pname" id="pname"></p>
+          <p class="pdesc" id="pdesc"></p>
+          <dl class="kv">
+            <dt>Shipped at</dt><dd id="pwhere"></dd>
+            <dt>Engine</dt><dd id="pengine"></dd>
+          </dl>
+          <div class="chips" id="pchips"></div>
+          <div class="build-row">
+            <button class="btn" id="buildBtn" type="button">Build</button>
+            <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+          </div>
+          <p class="log" id="buildLog">Pick a platform, then press Build.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="wrap">
+  <section id="about">
+    <div class="about">
+      <div>
+        <p>I make small games that load fast, play well on modest hardware and feel good from the first tap.</p>
+      </div>
+      <div>
+        <p>My game career started at Verinag Studios, shipping 50+ casual and hyper-casual mini-games to Google Play in Unity and Unreal Engine. At TriVector Tech I built WebGL and Android titles for the client Playbite. At Gamebee Studio I brought games to iOS and the living room on Apple TV, Amazon Fire TV and Roku. Throughout, I have built 3D gameplay in Unreal Engine with C++ and Blueprints.</p>
+        <p>Before games I spent two and a half years at Tata Consultancy Services. That work taught me testing discipline and how a full software development cycle runs, and I still apply both to every build.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head">
+      <h2>Experience</h2>
+      <p>Most recent first.</p>
+    </div>
+    <ol class="log-list">
+      <li class="entry">
+        <div class="when">Jan 2025 – Jan 2026</div>
+        <div class="rail" aria-hidden="true"><i></i></div>
+        <div class="job">
+          <h3>Unreal and Unity Developer</h3>
+          <p class="org">Gamebee Studio</p>
+          <ul>
+            <li>Developed and maintained casual and hyper-casual games in Unity and C# for mobile and smart TV.</li>
+            <li>Built 3D games and gameplay systems in Unreal Engine using C++ and Blueprints.</li>
+            <li>Built and deployed releases for Android, iOS, tvOS (Apple TV), Amazon Fire TV and Roku TV.</li>
+            <li>Adapted gameplay, UI and input for TV remotes and a wide range of screen resolutions.</li>
+            <li>Tuned performance and memory for smooth play on low-end phones and TV hardware.</li>
+          </ul>
+          <div class="chips"><span class="chip">Unity</span><span class="chip">Unreal</span><span class="chip">C++</span><span class="chip">Blueprints</span><span class="chip">Fire TV</span><span class="chip">Roku</span></div>
+        </div>
+      </li>
+      <li class="entry">
+        <div class="when">Sep 2023 – Jan 2025</div>
+        <div class="rail" aria-hidden="true"><i></i></div>
+        <div class="job">
+          <h3>Unreal and Unity Developer</h3>
+          <p class="org">TriVector Tech</p>
+          <ul>
+            <li>Developed and maintained casual and hyper-casual mobile games in Unity and C#.</li>
+            <li>Developed 3D gameplay features and prototypes in Unreal Engine with C++ and Blueprints.</li>
+            <li>Delivered WebGL and Android APK builds for web and mobile distribution.</li>
+            <li>Integrated and published games on the client Playbite's platform, tuning load time and performance for it.</li>
+            <li>Shipped every title to the client's quality bar and on schedule.</li>
+          </ul>
+          <div class="chips"><span class="chip">Unity</span><span class="chip">WebGL</span><span class="chip">Android</span><span class="chip">Playbite</span></div>
+        </div>
+      </li>
+      <li class="entry">
+        <div class="when">Nov 2021 – Sep 2023</div>
+        <div class="rail" aria-hidden="true"><i></i></div>
+        <div class="job">
+          <h3>Unreal and Unity Developer</h3>
+          <p class="org">Verinag Studios</p>
+          <ul>
+            <li>Developed and shipped 50+ casual and hyper-casual mini-games to the Google Play Store.</li>
+            <li>Worked on the early development of an unannounced 3D PC title in Unreal Engine, programming gameplay in C++ and Blueprints.</li>
+            <li>Streamlined the production pipeline to shorten turnaround between releases.</li>
+            <li>Kept quality and player engagement high across a fast release schedule.</li>
+          </ul>
+          <div class="chips"><span class="chip">Unity</span><span class="chip">Unreal Engine</span><span class="chip">Google Play</span><span class="chip">PC</span></div>
+        </div>
+      </li>
+      <li class="entry">
+        <div class="when">Apr 2019 – Sep 2021</div>
+        <div class="rail" aria-hidden="true"><i></i></div>
+        <div class="job">
+          <h3>Assistant System Engineer</h3>
+          <p class="org">Tata Consultancy Services</p>
+          <ul>
+            <li>Maintained and updated legacy enterprise systems on IBM AS400.</li>
+            <li>Tested software updates for stability, reliability and performance.</li>
+            <li>Worked across the full software development life cycle with cross-functional teams.</li>
+          </ul>
+          <div class="chips"><span class="chip">SDLC</span><span class="chip">QA</span><span class="chip">AS400</span></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="work">
+    <div class="sec-head">
+      <h2>Published games</h2>
+      <p>13 titles live on Amazon Fire TV, Apple TV, the Roku Channel Store and Google Play. Every card links to its store page or a gameplay showcase.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter by platform">
+      <button class="filter" type="button" data-filter="all" aria-pressed="true">All<span>13</span></button>
+      <button class="filter" type="button" data-filter="fire" aria-pressed="false">Amazon Fire TV<span>7</span></button>
+      <button class="filter" type="button" data-filter="apple" aria-pressed="false">Apple TV<span>2</span></button>
+      <button class="filter" type="button" data-filter="roku" aria-pressed="false">Roku TV<span>2</span></button>
+      <button class="filter" type="button" data-filter="play" aria-pressed="false">Google Play<span>2</span></button>
+      <button class="filter" type="button" data-filter="3d" aria-pressed="false">3D games<span>6</span></button>
+    </div>
+    <div class="grid" id="games">
+      <article class="card feature" data-tags="play">
+        <div class="thumb"><canvas data-art="words" aria-hidden="true"></canvas><span class="tag">Google Play · Puzzle</span></div>
+        <div class="card-body">
+          <h3>Chhota Bheem: Word Kingdom</h3>
+          <div class="meta"><span><b>Gamebee Studio</b></span><span>Android</span><span>18K+ installs</span></div>
+          <p>A word puzzle game built on the Chhota Bheem license. Players solve word puzzles to earn coins, then spend them building and decorating their own kingdom, with daily bonus challenges along the way.</p>
+          <div class="chips"><span class="chip">Unity</span><span class="chip">Word puzzle</span><span class="chip">Meta progression</span></div>
+          <a class="store" href="https://play.google.com/store/apps/details?id=com.gamebee.wordkingdom&amp;hl=en" target="_blank" rel="noopener">Get it on Google Play ↗</a>
+        </div>
+      </article>
+      <article class="card" data-tags="roku">
+        <div class="thumb"><canvas data-art="sub" aria-hidden="true"></canvas><span class="tag">Roku TV · Arcade</span></div>
+        <div class="card-body">
+          <h3>Submarine Rush</h3>
+          <div class="meta"><span>Roku Channel Store</span><span>Remote controls</span></div>
+          <p>An underwater arcade runner for the living room. You steer a submarine through obstacles using only the Roku remote.</p>
+          <a class="store" href="https://channelstore.roku.com/details/e3c94573fd5f434705a64e80ba120d38:e2c33103a81f8fa3578a21702d200724/submarine-rush" target="_blank" rel="noopener">View on Roku ↗</a>
+        </div>
+      </article>
+      <article class="card" data-tags="roku">
+        <div class="thumb"><canvas data-art="ufo" aria-hidden="true"></canvas><span class="tag">Roku TV · Survival</span></div>
+        <div class="card-body">
+          <h3>Alien Skies: UFO Survival</h3>
+          <div class="meta"><span>Roku Channel Store</span><span>Remote controls</span></div>
+          <p>A UFO survival game for Roku TVs. Players pilot a flying saucer and stay alive as long as they can against escalating hazards.</p>
+          <a class="store" href="https://channelstore.roku.com/details/673f4d4d9936a755ae0637c6000f1b34:ace34ca355bf75331f8180e3a9d197ef/alien-skies-ufo-survival" target="_blank" rel="noopener">View on Roku ↗</a>
+        </div>
+      </article>
+      <article class="card" data-tags="fire 3d">
+        <div class="thumb"><canvas data-art="fruit" aria-hidden="true"></canvas><span class="tag">Fire TV · 3D Arcade</span></div>
+        <div class="card-body">
+          <h3>Fruit Cutter Ninja Extreme 3D</h3>
+          <div class="meta"><span><b>Gamebee Studio</b></span><span>Amazon Fire TV</span></div>
+          <p>A 3D fruit-slicing arcade game adapted for Fire TV, with fast slicing designed around D-pad and remote input.</p>
+          <a class="store" href="https://www.amazon.in/dp/B09X5LHTTQ" target="_blank" rel="noopener">View on Amazon ↗</a>
+        </div>
+      </article>
+      <article class="card" data-tags="fire 3d">
+        <div class="thumb"><canvas data-art="jet" aria-hidden="true"></canvas><span class="tag">Fire TV · 3D Simulator</span></div>
+        <div class="card-body">
+          <h3>Jet Force: Elite Combat Simulator</h3>
+          <div class="meta"><span><b>Gamebee Studio</b></span><span>Amazon Fire TV</span></div>
+          <p>A 3D jet combat and airplane simulator for the big screen, with flight controls built for a TV remote.</p>
+          <a class="store" href="https://www.amazon.in/dp/B0DXF6NJ36" target="_blank" rel="noopener">View on Amazon ↗</a>
+        </div>
+      </article>
+      <article class="card" data-tags="fire apple 3d">
+        <div class="thumb"><canvas data-art="stunt" aria-hidden="true"></canvas><span class="tag">Fire TV · Apple TV · 3D Racing</span></div>
+        <div class="card-body">
+          <h3>Stunt Extreme 3D</h3>
+          <div class="meta"><span>Amazon Fire TV</span><span>Apple TV</span></div>
+          <p>A 3D traffic racer with stunt driving, released on both Amazon Fire TV and Apple TV with remote-friendly steering.</p>
+          <div class="chips"><a class="store" href="https://www.amazon.in/dp/B09FK46JVY" target="_blank" rel="noopener">Amazon ↗</a><a class="store ghost" href="https://apps.apple.com/in/app/stunt-extreme-3d/id1665512677?platform=tv" target="_blank" rel="noopener">App Store ↗</a></div>
+        </div>
+      </article>
+      <article class="card" data-tags="fire 3d">
+        <div class="thumb"><canvas data-art="sniper" aria-hidden="true"></canvas><span class="tag">Fire TV · 3D Shooter</span></div>
+        <div class="card-body">
+          <h3>Sniper Mission 3D</h3>
+          <div class="meta"><span>Amazon Fire TV</span><span>Battle Ground</span></div>
+          <p>A 3D sniper shooter built for the TV, with aiming and scope controls mapped to the remote.</p>
+          <a class="store" href="https://www.amazon.in/dp/B09Q83RDYJ" target="_blank" rel="noopener">View on Amazon ↗</a>
+        </div>
+      </article>
+      <article class="card" data-tags="apple 3d">
+        <div class="thumb"><canvas data-art="football" aria-hidden="true"></canvas><span class="tag">Apple TV · 3D Sports</span></div>
+        <div class="card-body">
+          <h3>Football World Champions 3D</h3>
+          <div class="meta"><span>Apple TV</span><span>Siri Remote</span></div>
+          <p>A 3D football game for Apple TV, played on the big screen with the Siri Remote.</p>
+          <a class="store" href="https://apps.apple.com/in/app/football-world-champions-3d/id6752926020?platform=tv" target="_blank" rel="noopener">View on App Store ↗</a>
+        </div>
+      </article>
+      <article class="card" data-tags="fire">
+        <div class="thumb"><canvas data-art="soccer" aria-hidden="true"></canvas><span class="tag">Fire TV · Sports</span></div>
+        <div class="card-body">
+          <h3>Soccer Pro</h3>
+          <div class="meta"><span>Amazon Fire TV</span><span>Football</span></div>
+          <p>An arcade football game for Fire TV with quick matches and controls designed for the remote.</p>
+          <a class="store" href="https://www.amazon.in/dp/B0FN9TVJLV" target="_blank" rel="noopener">View on Amazon ↗</a>
+        </div>
+      </article>
+      <article class="card" data-tags="fire">
+        <div class="thumb"><canvas data-art="bowling" aria-hidden="true"></canvas><span class="tag">Fire TV · Sports</span></div>
+        <div class="card-body">
+          <h3>Bowling Championship</h3>
+          <div class="meta"><span>Amazon Fire TV</span><span>Sports</span></div>
+          <p>A bowling game for the living room. Players aim, set power and spin, and go for strikes with the TV remote.</p>
+          <a class="store" href="https://www.amazon.in/dp/B0DJQPGLH7" target="_blank" rel="noopener">View on Amazon ↗</a>
+        </div>
+      </article>
+      <article class="card" data-tags="fire">
+        <div class="thumb"><canvas data-art="shark" aria-hidden="true"></canvas><span class="tag">Fire TV · Action</span></div>
+        <div class="card-body">
+          <h3>Shark Attack</h3>
+          <div class="meta"><span>Amazon Fire TV</span><span>Jaws the Predators</span></div>
+          <p>An ocean action game for Fire TV in which you play as a shark hunting through the sea.</p>
+          <a class="store" href="https://www.amazon.in/dp/B0CNQBTX3K" target="_blank" rel="noopener">View on Amazon ↗</a>
+        </div>
+      </article>
+      <article class="card" data-tags="play">
+        <div class="thumb"><canvas data-art="mini" aria-hidden="true"></canvas><span class="tag">Google Play · Hyper-casual</span></div>
+        <div class="card-body">
+          <h3>Mini Games Collection</h3>
+          <div class="meta"><span>Android</span><span>Showcase reel</span></div>
+          <p>49 quick-session hyper-casual games shipped to Google Play at Verinag Studios, shown in three short reels.</p>
+          <div class="chips"><a class="store" href="#reels">Watch the reels ↓</a><a class="store ghost" href="https://drive.google.com/file/d/1uVMqDrYkOvHNk2M3uhTeEfP7zqywZrWt/view?usp=sharing" target="_blank" rel="noopener">Full PDF ↗</a></div>
+        </div>
+      </article>
+      <article class="card" data-tags="3d">
+        <div class="thumb"><canvas data-art="meta" aria-hidden="true"></canvas><span class="tag">3D · Metaverse</span></div>
+        <div class="card-body">
+          <h3>YUG Metaverse</h3>
+          <div class="meta"><span>3D virtual world</span><span>Project showcase</span></div>
+          <p>Development work on YUG Metaverse, a 3D virtual-world platform for hosting social events in shared online spaces.</p>
+          <a class="store ghost" href="https://drive.google.com/drive/folders/1gSKtJtJVevdTqO8_7cVauWV8Q3YClErG?usp=drive_link" target="_blank" rel="noopener">See project files ↗</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="reels">
+    <div class="sec-head">
+      <h2>Verinag Studios reels</h2>
+      <p>49 hyper-casual games shipped to Google Play, shown in three 30-second reels.</p>
+    </div>
+    <div class="reel">
+      <div class="reel-player">
+        <video id="reelVideo" controls muted playsinline preload="metadata" poster="videos/verinag-reel-1-poster.jpg">
+          <source id="reelSrc" src="videos/verinag-reel-1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="reel-list" role="tablist" aria-label="Choose a reel">
+        <button class="reel-pick" type="button" role="tab" aria-selected="true" data-n="1" id="reel-pick-1">
+          <img src="videos/verinag-reel-1-poster.jpg" alt="">
+          <span><b>Part 1</b><small>Games 1–17 · Zombie Life Matters to Yoyo Hook</small></span>
+        </button>
+        <button class="reel-pick" type="button" role="tab" aria-selected="false" data-n="2" id="reel-pick-2">
+          <img src="videos/verinag-reel-2-poster.jpg" alt="">
+          <span><b>Part 2</b><small>Games 18–33 · Yee It to Spooky Race</small></span>
+        </button>
+        <button class="reel-pick" type="button" role="tab" aria-selected="false" data-n="3" id="reel-pick-3">
+          <img src="videos/verinag-reel-3-poster.jpg" alt="">
+          <span><b>Part 3</b><small>Games 34–49 · Crawl to Futbol</small></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head">
+      <h2>Skills</h2>
+      <p>Tools I use every day, plus the engineering background behind them.</p>
+    </div>
+    <div class="skills">
+      <div class="skill-group lead">
+        <h3>Core stack</h3>
+        <ul><li>Unity 2D/3D</li><li>C#</li><li>Unreal Engine</li><li>C++</li><li>Blueprints</li><li>3D game development</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3>Game development</h3>
+        <ul><li>Gameplay programming</li><li>Hyper-casual design</li><li>Performance optimization</li><li>Multi-platform builds</li><li>Platform integration</li><li>Google Play publishing</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3>Platforms</h3>
+        <ul><li>Android</li><li>iOS</li><li>WebGL</li><li>tvOS</li><li>Amazon Fire TV</li><li>Roku TV</li><li>PC</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3>Engineering</h3>
+        <ul><li>OOP</li><li>Debugging</li><li>Testing &amp; QA</li><li>SDLC</li><li>C</li><li>Java</li><li>Azure fundamentals</li></ul>
+      </div>
+    </div>
+    <div class="extras">
+      <div>
+        <h3>Education</h3>
+        <ul><li>Bachelor of Computer Science, C.S.J.M. University, Kanpur (2015 – 2018)</li></ul>
+      </div>
+      <div>
+        <h3>Certifications &amp; languages</h3>
+        <ul>
+          <li>Microsoft Certified: Azure Fundamentals (AZ-900)</li>
+          <li>NIIT: Programming in C, C++ and Java</li>
+          <li>Hindi (native), English (professional), Japanese (conversational)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="border-top:0">
+    <div class="contact">
+      <div>
+        <h2>Let's build something people want to replay.</h2>
+        <p>I'm open to Unity developer roles and freelance game projects, remote or on-site.</p>
+      </div>
+      <div class="rows">
+        <div class="row"><div><small>Email</small><span class="val" id="em">harshitdhawan.1997@gmail.com</span></div><button class="copy" type="button" data-copy="em">Copy</button></div>
+        <div class="row"><div><small>Phone</small><span class="val" id="ph">+91 7007816553</span></div><button class="copy" type="button" data-copy="ph">Copy</button></div>
+        <div class="row"><div><small>LinkedIn</small><a class="val" href="https://www.linkedin.com/in/grootnub/" target="_blank" rel="noopener">linkedin.com/in/grootnub ↗</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Harshit Dhawan</span>
+    <code>Built for every screen.</code>
+  </footer>
+</div>
+
+<script>
+(function () {
+  const icons = {
+    android: '<svg viewBox="0 0 24 24"><rect x="5" y="9" width="14" height="10" rx="2"/><path d="M8 9a4 4 0 0 1 8 0M8 5l1.5 2M16 5l-1.5 2"/></svg>',
+    ios: '<svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg>',
+    webgl: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
+    tv: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8"/></svg>',
+    pc: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M9 20h6M12 16v4"/></svg>'
+  };
+  const P = [
+    { id: 'android', name: 'Android', icon: 'android', desc: 'Most of my catalogue. Over 50 titles shipped to Google Play, plus APK builds for clients.', where: 'Verinag Studios, TriVector Tech, Gamebee Studio', engine: 'Unity, Unreal Engine', chips: ['Google Play', 'APK', 'Low-end tuning'] },
+    { id: 'ios', name: 'iOS', icon: 'ios', desc: 'Mobile releases built from the same Unity projects as Android, with platform-specific polish.', where: 'Gamebee Studio', engine: 'Unity', chips: ['Multi-platform', 'Touch input'] },
+    { id: 'webgl', name: 'WebGL', icon: 'webgl', desc: 'Browser builds integrated into the client Playbite’s platform, tuned for fast loading.', where: 'TriVector Tech', engine: 'Unity', chips: ['Playbite', 'Load time', 'Integration'] },
+    { id: 'tvos', name: 'tvOS (Apple TV)', icon: 'tv', desc: '3D games for the living room, including Stunt Extreme 3D and Football World Champions 3D, with Siri Remote input and focus-based menus.', where: 'Gamebee Studio', engine: 'Unity', chips: ['Remote input', 'Focus UI'] },
+    { id: 'firetv', name: 'Amazon Fire TV', icon: 'tv', desc: 'D-pad friendly 3D games like Fruit Cutter Ninja Extreme 3D and Jet Force: Elite Combat Simulator, tuned for Fire TV hardware.', where: 'Gamebee Studio', engine: 'Unity, Unreal Engine', chips: ['3D', 'D-pad', 'Performance'] },
+    { id: 'roku', name: 'Roku TV', icon: 'tv', desc: 'Remote-controlled arcade games on the Roku Channel Store, including Submarine Rush and Alien Skies: UFO Survival.', where: 'Gamebee Studio', engine: 'Unity', chips: ['Channel Store', 'TV UX'] },
+    { id: 'pc', name: 'PC', icon: 'pc', desc: 'Early-phase work on an unannounced PC title.', where: 'Verinag Studios', engine: 'Unreal Engine, C++', chips: ['Prototype', 'Unreal'] }
+  ];
+  const list = document.getElementById('plist');
+  let current = 0, timer = null;
+  P.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'plat'; b.id = 'plat-' + p.id;
+    b.setAttribute('role', 'tab');
+    b.innerHTML = '<span class="ico">' + icons[p.icon] + '</span><span>' + p.name + '</span><span class="tick">✓</span>';
+    b.addEventListener('click', () => select(i));
+    b.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); select((i + 1) % P.length, true); }
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); select((i - 1 + P.length) % P.length, true); }
+    });
+    list.appendChild(b);
+  });
+  function select(i, focus) {
+    current = i;
+    const p = P[i];
+    list.querySelectorAll('.plat').forEach((b, j) => { b.setAttribute('aria-selected', j === i ? 'true' : 'false'); b.tabIndex = j === i ? 0 : -1; });
+    if (focus) list.querySelectorAll('.plat')[i].focus();
+    document.getElementById('pname').textContent = p.name;
+    document.getElementById('pdesc').textContent = p.desc;
+    document.getElementById('pwhere').textContent = p.where;
+    document.getElementById('pengine').textContent = p.engine;
+    document.getElementById('pchips').innerHTML = p.chips.map(c => '<span class="chip">' + c + '</span>').join('');
+    clearInterval(timer);
+    document.getElementById('barFill').style.width = '0';
+    document.getElementById('buildLog').textContent = 'Target: ' + p.name + '. Ready to build.';
+  }
+  document.getElementById('buildBtn').addEventListener('click', () => {
+    const p = P[current];
+    const steps = ['Compiling scripts…', 'Packing textures…', 'Optimizing for ' + p.name + '…', 'Build succeeded. Ready to play.'];
+    const fill = document.getElementById('barFill'), log = document.getElementById('buildLog');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    clearInterval(timer);
+    if (reduce) { fill.style.width = '100%'; log.textContent = steps[3]; return; }
+    let pct = 0;
+    timer = setInterval(() => {
+      pct = Math.min(100, pct + 4);
+      fill.style.width = pct + '%';
+      log.textContent = steps[Math.min(3, Math.floor(pct / 34))];
+      if (pct >= 100) clearInterval(timer);
+    }, 45);
+  });
+  select(0);
+
+  // Copy buttons
+  document.querySelectorAll('.copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = document.getElementById(btn.dataset.copy);
+      const text = el.textContent.trim();
+      const done = () => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1600); };
+      const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selected'; setTimeout(() => btn.textContent = 'Copy', 1600); };
+      try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+    });
+  });
+
+  // Reel picker
+  const vid = document.getElementById('reelVideo'), src = document.getElementById('reelSrc');
+  document.querySelectorAll('.reel-pick').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const n = btn.dataset.n;
+      document.querySelectorAll('.reel-pick').forEach(b => b.setAttribute('aria-selected', b === btn ? 'true' : 'false'));
+      src.src = 'videos/verinag-reel-' + n + '.mp4';
+      vid.poster = 'videos/verinag-reel-' + n + '-poster.jpg';
+      vid.load();
+      const p = vid.play(); if (p && p.catch) p.catch(() => {});
+    });
+  });
+
+  // Platform filters for the games grid
+  const cards = document.querySelectorAll('#games .card');
+  document.querySelectorAll('.filter').forEach(f => {
+    f.addEventListener('click', () => {
+      const key = f.dataset.filter;
+      document.querySelectorAll('.filter').forEach(x => x.setAttribute('aria-pressed', x === f ? 'true' : 'false'));
+      cards.forEach(card => {
+        const tags = card.dataset.tags.split(' ');
+        card.hidden = !(key === 'all' || tags.includes(key));
+        card.classList.toggle('feature', key === 'all' && card === cards[0]);
+      });
+      requestAnimationFrame(redraw);
+    });
+  });
+
+  // Illustrated thumbnails, one small scene per game (drawn, so no external images are needed)
+  function circle(c, x, y, r, col) { c.fillStyle = col; c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.fill(); }
+  const scenes = {
+    words(c, w, h) {
+      const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#FFB84D'); g.addColorStop(1, '#FF6A3D'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      // castle silhouette
+      c.fillStyle = 'rgba(120,30,10,.28)';
+      const bx = w * .5, base = h * .92;
+      c.fillRect(bx - w * .26, base - h * .34, w * .52, h * .34);
+      [-.26, -.06, .14].forEach(o => { c.fillRect(bx + w * o, base - h * .5, w * .12, h * .16); });
+      // letter tiles spelling BHEEM-ish word: KINGDOM
+      const word = 'KINGDOM', s = Math.min(w / 10, h / 4.2), y = h * .3;
+      const x0 = (w - word.length * s * 1.12) / 2;
+      [...word].forEach((ch, i) => {
+        const x = x0 + i * s * 1.12, yy = y + Math.sin(i * 1.1) * s * .18;
+        c.fillStyle = 'rgba(80,20,0,.25)'; roundRect(c, x + 3, yy + 5, s, s, s * .2); c.fill();
+        c.fillStyle = '#FFF6E6'; roundRect(c, x, yy, s, s, s * .2); c.fill();
+        c.fillStyle = '#7A2A10'; c.font = '800 ' + Math.round(s * .58) + 'px Unbounded, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+        c.fillText(ch, x + s / 2, yy + s / 2 + 2);
+      });
+      [[.1, .15], [.88, .2], [.8, .7], [.16, .72]].forEach(([px, py], i) => circle(c, w * px, h * py, 6 + i * 2, '#FFE27A'));
+    },
+    sub(c, w, h) {
+      const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#0E6E8C'); g.addColorStop(1, '#062C45'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      c.fillStyle = 'rgba(255,255,255,.08)'; for (let i = 0; i < 5; i++) { c.beginPath(); c.moveTo(w * (.1 + i * .2), 0); c.lineTo(w * (.18 + i * .2), 0); c.lineTo(w * (.05 + i * .2), h); c.lineTo(w * (-.03 + i * .2), h); c.fill(); }
+      // seabed + rocks
+      c.fillStyle = '#04202F'; c.beginPath(); c.moveTo(0, h); for (let x = 0; x <= w; x += w / 8) c.lineTo(x, h * (.82 + .06 * Math.sin(x * .05))); c.lineTo(w, h); c.fill();
+      c.fillStyle = '#0B3B52'; c.beginPath(); c.moveTo(w * .7, 0); c.lineTo(w * .82, h * .32); c.lineTo(w * .94, 0); c.fill();
+      // submarine
+      const sx = w * .38, sy = h * .5, L = w * .3, H = h * .17;
+      c.fillStyle = '#F2B705'; c.beginPath(); c.ellipse(sx, sy, L / 2, H / 2, 0, 0, Math.PI * 2); c.fill();
+      c.fillRect(sx - L * .08, sy - H * .95, L * .2, H * .5);
+      c.fillStyle = '#E09A00'; c.beginPath(); c.moveTo(sx - L / 2 + 4, sy); c.lineTo(sx - L * .66, sy - H * .45); c.lineTo(sx - L * .66, sy + H * .45); c.fill();
+      [0, 1, 2].forEach(i => { circle(c, sx - L * .12 + i * L * .17, sy, H * .17, '#062C45'); circle(c, sx - L * .12 + i * L * .17, sy, H * .11, '#7FE3F5'); });
+      [[.66, .4, 5], [.7, .3, 3.5], [.74, .22, 2.5]].forEach(([px, py, r]) => { c.strokeStyle = 'rgba(255,255,255,.55)'; c.lineWidth = 1.5; c.beginPath(); c.arc(w * px, h * py, r, 0, 7); c.stroke(); });
+    },
+    ufo(c, w, h) {
+      const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#1B1240'); g.addColorStop(1, '#4A1E6B'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      let s = 11; const r = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+      for (let i = 0; i < 40; i++) circle(c, r() * w, r() * h * .7, r() * 1.6 + .4, 'rgba(255,255,255,.8)');
+      circle(c, w * .84, h * .2, h * .09, '#FFD7A8');
+      // beam
+      const ux = w * .48, uy = h * .38;
+      const bg = c.createLinearGradient(0, uy, 0, h); bg.addColorStop(0, 'rgba(120,255,200,.55)'); bg.addColorStop(1, 'rgba(120,255,200,0)');
+      c.fillStyle = bg; c.beginPath(); c.moveTo(ux - w * .05, uy); c.lineTo(ux + w * .05, uy); c.lineTo(ux + w * .16, h); c.lineTo(ux - w * .16, h); c.fill();
+      // saucer
+      c.fillStyle = '#8FF0D0'; c.beginPath(); c.ellipse(ux, uy - h * .06, w * .07, h * .09, 0, Math.PI, 0); c.fill();
+      c.fillStyle = '#C7CCE0'; c.beginPath(); c.ellipse(ux, uy, w * .17, h * .065, 0, 0, Math.PI * 2); c.fill();
+      [-2, -1, 0, 1, 2].forEach(i => circle(c, ux + i * w * .055, uy + 1, 3.5, '#FF5F2E'));
+      // asteroids
+      [[.18, .3, .05], [.75, .62, .04], [.12, .74, .035]].forEach(([px, py, pr]) => circle(c, w * px, h * py, h * pr * 2, '#6B5A8E'));
+      c.fillStyle = '#120C2C'; c.fillRect(0, h * .9, w, h * .1);
+    },
+    fruit(c, w, h) {
+      const g = c.createRadialGradient(w * .5, h * .5, 10, w * .5, h * .5, w * .7); g.addColorStop(0, '#5A2A12'); g.addColorStop(1, '#2A1408'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      c.strokeStyle = 'rgba(255,255,255,.05)'; c.lineWidth = 6; for (let y = 10; y < h; y += 26) { c.beginPath(); c.moveTo(0, y); c.lineTo(w, y + 6); c.stroke(); }
+      // watermelon halves
+      const cx = w * .42, cy = h * .52, R = h * .26;
+      c.save(); c.translate(cx, cy); c.rotate(-.35);
+      c.fillStyle = '#1E8A3A'; c.beginPath(); c.arc(-6, 0, R, Math.PI * .5, Math.PI * 1.5); c.fill();
+      c.fillStyle = '#FF4D5E'; c.beginPath(); c.arc(-6, 0, R * .84, Math.PI * .5, Math.PI * 1.5); c.fill();
+      c.fillStyle = '#1E8A3A'; c.beginPath(); c.arc(10, 6, R, -Math.PI * .5, Math.PI * .5); c.fill();
+      c.fillStyle = '#FF4D5E'; c.beginPath(); c.arc(10, 6, R * .84, -Math.PI * .5, Math.PI * .5); c.fill();
+      for (let i = 0; i < 6; i++) { c.fillStyle = '#2A1408'; c.beginPath(); c.ellipse(-R * .4 + (i % 3) * 8 - 6, -R * .3 + i * 10, 2, 4, .3, 0, 7); c.fill(); }
+      c.restore();
+      // orange + slash
+      circle(c, w * .76, h * .32, h * .11, '#FF9F1C'); circle(c, w * .76, h * .32, h * .07, '#FFC15E');
+      circle(c, w * .18, h * .26, h * .07, '#B6E34A');
+      c.strokeStyle = '#FFFFFF'; c.lineWidth = 4; c.lineCap = 'round'; c.beginPath(); c.moveTo(w * .1, h * .86); c.quadraticCurveTo(w * .45, h * .45, w * .92, h * .12); c.stroke();
+      c.strokeStyle = 'rgba(255,255,255,.3)'; c.lineWidth = 12; c.stroke();
+      [[.6, .66], [.64, .74], [.3, .7]].forEach(([px, py]) => circle(c, w * px, h * py, 4, '#FF4D5E'));
+    },
+    jet(c, w, h) {
+      const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#3F6BFF'); g.addColorStop(.7, '#9EC3FF'); g.addColorStop(1, '#E8F0FF'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      // clouds
+      [[.15, .7, 1], [.7, .78, 1.3], [.85, .3, .8]].forEach(([px, py, sc]) => { [0, 1, 2].forEach(i => circle(c, w * px + i * 22 * sc, h * py - (i === 1 ? 10 * sc : 0), 18 * sc, 'rgba(255,255,255,.85)')); });
+      // jet (top-down, banking)
+      c.save(); c.translate(w * .48, h * .45); c.rotate(-.5); const S = Math.min(w, h) * .0042;
+      c.scale(S, S);
+      c.fillStyle = '#2A2E42';
+      c.beginPath(); c.moveTo(70, 0); c.lineTo(-50, -8); c.lineTo(-60, 0); c.lineTo(-50, 8); c.closePath(); c.fill();
+      c.beginPath(); c.moveTo(18, -4); c.lineTo(-22, -46); c.lineTo(-34, -46); c.lineTo(-18, -4); c.fill();
+      c.beginPath(); c.moveTo(18, 4); c.lineTo(-22, 46); c.lineTo(-34, 46); c.lineTo(-18, 4); c.fill();
+      c.beginPath(); c.moveTo(-40, -3); c.lineTo(-58, -20); c.lineTo(-64, -20); c.lineTo(-56, -3); c.fill();
+      c.beginPath(); c.moveTo(-40, 3); c.lineTo(-58, 20); c.lineTo(-64, 20); c.lineTo(-56, 3); c.fill();
+      c.fillStyle = '#7FE3F5'; c.beginPath(); c.ellipse(36, 0, 12, 4, 0, 0, 7); c.fill();
+      c.fillStyle = '#FF5F2E'; c.beginPath(); c.moveTo(-60, -4); c.lineTo(-86, 0); c.lineTo(-60, 4); c.fill();
+      c.restore();
+      c.strokeStyle = 'rgba(255,255,255,.7)'; c.lineWidth = 2; [0, 1].forEach(i => { c.beginPath(); c.moveTo(w * .05, h * (.86 + i * .05)); c.lineTo(w * .3, h * (.62 + i * .05)); c.stroke(); });
+      // HUD reticle
+      c.strokeStyle = 'rgba(23,26,43,.45)'; c.lineWidth = 1.5; c.beginPath(); c.arc(w * .78, h * .6, h * .1, 0, 7); c.stroke();
+      c.beginPath(); c.moveTo(w * .78 - h * .15, h * .6); c.lineTo(w * .78 + h * .15, h * .6); c.moveTo(w * .78, h * .45); c.lineTo(w * .78, h * .75); c.stroke();
+    },
+    mini(c, w, h) {
+      c.fillStyle = '#171A2B'; c.fillRect(0, 0, w, h);
+      const cols = ['#FF5F2E', '#F2B705', '#0E9E86', '#3F6BFF', '#FF4D9A', '#8C5BFF'];
+      const n = 6, rows = 3, s = Math.min(w / (n + 2), h / (rows + 1.4)), gx = (w - n * s * 1.25 + s * .25) / 2, gy = (h - rows * s * 1.25 + s * .25) / 2;
+      let k = 0;
+      for (let y = 0; y < rows; y++) for (let x = 0; x < n; x++, k++) {
+        const px = gx + x * s * 1.25, py = gy + y * s * 1.25, col = cols[(x + y * 2) % cols.length];
+        c.fillStyle = col; roundRect(c, px, py, s, s, s * .26); c.fill();
+        c.fillStyle = 'rgba(255,255,255,.9)';
+        const m = px + s / 2, n2 = py + s / 2, q = s * .2;
+        switch (k % 5) {
+          case 0: c.beginPath(); c.arc(m, n2, q, 0, 7); c.fill(); break;
+          case 1: c.fillRect(m - q, n2 - q, q * 2, q * 2); break;
+          case 2: c.beginPath(); c.moveTo(m, n2 - q * 1.2); c.lineTo(m + q * 1.2, n2 + q); c.lineTo(m - q * 1.2, n2 + q); c.fill(); break;
+          case 3: c.fillRect(m - q * 1.3, n2 - q * .3, q * 2.6, q * .6); c.fillRect(m - q * .3, n2 - q * 1.3, q * .6, q * 2.6); break;
+          default: c.beginPath(); c.arc(m, n2, q, 0, Math.PI); c.fill();
+        }
+      }
+      c.fillStyle = '#F2B705'; c.font = '800 ' + Math.round(s * .42) + 'px Unbounded, sans-serif'; c.textAlign = 'right'; c.textBaseline = 'bottom'; c.fillText('50+', w - 14, h - 10);
+    },
+    meta(c, w, h) {
+      const g = c.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#0B1030'); g.addColorStop(1, '#2A1B5E'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      // perspective grid floor
+      const hz = h * .52, vx = w * .5;
+      c.strokeStyle = 'rgba(44,207,177,.55)'; c.lineWidth = 1;
+      for (let i = -10; i <= 10; i++) { c.beginPath(); c.moveTo(vx, hz); c.lineTo(vx + i * w * .12, h); c.stroke(); }
+      for (let j = 1; j < 9; j++) { const y = hz + (h - hz) * Math.pow(j / 8, 1.8); c.beginPath(); c.moveTo(0, y); c.lineTo(w, y); c.stroke(); }
+      // floating platforms / buildings
+      function cube(x, y, s, top, left, right) {
+        c.fillStyle = top; c.beginPath(); c.moveTo(x, y - s * .5); c.lineTo(x + s, y); c.lineTo(x, y + s * .5); c.lineTo(x - s, y); c.fill();
+        c.fillStyle = left; c.beginPath(); c.moveTo(x - s, y); c.lineTo(x, y + s * .5); c.lineTo(x, y + s * 1.4); c.lineTo(x - s, y + s * .9); c.fill();
+        c.fillStyle = right; c.beginPath(); c.moveTo(x + s, y); c.lineTo(x, y + s * .5); c.lineTo(x, y + s * 1.4); c.lineTo(x + s, y + s * .9); c.fill();
+      }
+      const S = Math.min(w, h);
+      cube(w * .5, h * .3, S * .14, '#B39DFF', '#6B4FD8', '#4A33A8');
+      cube(w * .24, h * .42, S * .08, '#7FE3F5', '#2CA6C2', '#1C7A91');
+      cube(w * .77, h * .4, S * .09, '#FFB84D', '#E0822A', '#B5611A');
+      // avatars
+      [[.42, .78], [.55, .82], [.66, .74]].forEach(([px, py], i) => { circle(c, w * px, h * py - 12, 6, ['#FF5F2E', '#F2B705', '#2CCFB1'][i]); c.fillStyle = ['#FF5F2E', '#F2B705', '#2CCFB1'][i]; roundRect(c, w * px - 7, h * py - 4, 14, 18, 6); c.fill(); });
+    }
+  };
+  Object.assign(scenes, {
+    stunt(c, w, h) {
+      const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#FF8A3D'); g.addColorStop(.55, '#FFD08A'); g.addColorStop(.56, '#3A3F55'); g.addColorStop(1, '#22263A'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      circle(c, w * .78, h * .3, h * .12, '#FFF1C9');
+      // road in perspective
+      c.fillStyle = '#4A5068'; c.beginPath(); c.moveTo(w * .46, h * .56); c.lineTo(w * .54, h * .56); c.lineTo(w * .95, h); c.lineTo(w * .05, h); c.fill();
+      c.strokeStyle = '#FFE45C'; c.lineWidth = 3; c.setLineDash([10, 12]); c.beginPath(); c.moveTo(w * .5, h * .58); c.lineTo(w * .5, h); c.stroke(); c.setLineDash([]);
+      // ramp
+      c.fillStyle = '#FF5F2E'; c.beginPath(); c.moveTo(w * .12, h * .92); c.lineTo(w * .36, h * .92); c.lineTo(w * .36, h * .74); c.fill();
+      // airborne car
+      c.save(); c.translate(w * .5, h * .42); c.rotate(-.18); const s = Math.min(w, h) * .0045; c.scale(s, s);
+      c.fillStyle = '#3F6BFF'; roundRect(c, -46, -10, 92, 22, 6); c.fill(); roundRect(c, -24, -26, 44, 18, 6); c.fill();
+      c.fillStyle = '#9EC3FF'; roundRect(c, -18, -22, 16, 11, 3); c.fill(); roundRect(c, 2, -22, 14, 11, 3); c.fill();
+      circle(c, -28, 13, 9, '#171A2B'); circle(c, 28, 13, 9, '#171A2B'); circle(c, -28, 13, 4, '#C7CCE0'); circle(c, 28, 13, 4, '#C7CCE0');
+      c.restore();
+      c.strokeStyle = 'rgba(255,255,255,.7)'; c.lineWidth = 2; [0, 1, 2].forEach(i => { c.beginPath(); c.moveTo(w * (.22 - i * .03), h * (.5 + i * .05)); c.lineTo(w * .36, h * (.46 + i * .04)); c.stroke(); });
+    },
+    sniper(c, w, h) {
+      const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#9FB5A0'); g.addColorStop(.6, '#D9C9A0'); g.addColorStop(1, '#8C7A52'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      c.fillStyle = '#6E7F64'; c.beginPath(); c.moveTo(0, h * .62); for (let x = 0; x <= w; x += w / 6) c.lineTo(x, h * (.5 + .08 * Math.sin(x * .03))); c.lineTo(w, h); c.lineTo(0, h); c.fill();
+      // buildings
+      c.fillStyle = '#5A5148'; [[.15, .3], [.27, .22], [.62, .34], [.74, .26]].forEach(([px, ph]) => c.fillRect(w * px, h * (.6 - ph), w * .09, h * ph));
+      // scope
+      const cx = w * .5, cy = h * .5, R = h * .36;
+      c.save(); c.beginPath(); c.rect(0, 0, w, h); c.arc(cx, cy, R, 0, Math.PI * 2, true); c.fillStyle = 'rgba(10,12,20,.88)'; c.fill(); c.restore();
+      c.strokeStyle = '#0B0D14'; c.lineWidth = 6; c.beginPath(); c.arc(cx, cy, R, 0, 7); c.stroke();
+      c.strokeStyle = 'rgba(10,12,20,.85)'; c.lineWidth = 1.5;
+      c.beginPath(); c.moveTo(cx - R, cy); c.lineTo(cx + R, cy); c.moveTo(cx, cy - R); c.lineTo(cx, cy + R); c.stroke();
+      for (let i = -3; i <= 3; i++) if (i) { c.beginPath(); c.moveTo(cx + i * R * .12, cy - 4); c.lineTo(cx + i * R * .12, cy + 4); c.stroke(); }
+      circle(c, cx, cy, 2.5, '#FF3B30');
+    },
+    football(c, w, h) {
+      c.fillStyle = '#0B1A3A'; c.fillRect(0, 0, w, h);
+      // floodlights
+      [[.1, .1], [.9, .1]].forEach(([px, py]) => { const lg = c.createRadialGradient(w * px, h * py, 2, w * px, h * py, w * .4); lg.addColorStop(0, 'rgba(255,255,230,.55)'); lg.addColorStop(1, 'rgba(255,255,230,0)'); c.fillStyle = lg; c.fillRect(0, 0, w, h); });
+      // pitch in perspective with stripes
+      for (let i = 0; i < 8; i++) {
+        const y0 = h * (.45 + i * .07), y1 = y0 + h * .07, t0 = (y0 - h * .45) / (h * .55), t1 = (y1 - h * .45) / (h * .55);
+        c.fillStyle = i % 2 ? '#1F8A4C' : '#26A05A';
+        c.beginPath(); c.moveTo(w * (.3 - .3 * t0), y0); c.lineTo(w * (.7 + .3 * t0), y0); c.lineTo(w * (.7 + .3 * t1), y1); c.lineTo(w * (.3 - .3 * t1), y1); c.fill();
+      }
+      // goal
+      c.strokeStyle = '#FFFFFF'; c.lineWidth = 3; c.strokeRect(w * .4, h * .3, w * .2, h * .15);
+      c.strokeStyle = 'rgba(255,255,255,.35)'; c.lineWidth = 1; for (let i = 1; i < 6; i++) { c.beginPath(); c.moveTo(w * (.4 + i * .033), h * .3); c.lineTo(w * (.4 + i * .033), h * .45); c.stroke(); }
+      // ball
+      const bx = w * .56, by = h * .7, r = h * .07; circle(c, bx, by, r, '#FFFFFF');
+      c.fillStyle = '#171A2B'; c.beginPath(); for (let k = 0; k < 5; k++) { const a = -Math.PI / 2 + k * 2 * Math.PI / 5; c.lineTo(bx + Math.cos(a) * r * .38, by + Math.sin(a) * r * .38); } c.fill();
+      c.strokeStyle = 'rgba(255,255,255,.6)'; c.lineWidth = 2; c.setLineDash([5, 6]); c.beginPath(); c.moveTo(bx, by - r); c.quadraticCurveTo(w * .55, h * .3, w * .52, h * .36); c.stroke(); c.setLineDash([]);
+    },
+    soccer(c, w, h) {
+      c.fillStyle = '#2EA65A'; c.fillRect(0, 0, w, h);
+      c.fillStyle = 'rgba(255,255,255,.08)'; for (let i = 0; i < 8; i += 2) c.fillRect(w * i / 8, 0, w / 8, h);
+      c.strokeStyle = 'rgba(255,255,255,.85)'; c.lineWidth = 3;
+      c.strokeRect(w * .05, h * .1, w * .9, h * .8); c.beginPath(); c.moveTo(w * .5, h * .1); c.lineTo(w * .5, h * .9); c.stroke();
+      c.beginPath(); c.arc(w * .5, h * .5, h * .16, 0, 7); c.stroke();
+      c.strokeRect(w * .05, h * .3, w * .12, h * .4); c.strokeRect(w * .83, h * .3, w * .12, h * .4);
+      // players
+      [[.3, .35, '#FF5F2E'], [.38, .65, '#FF5F2E'], [.62, .4, '#3F6BFF'], [.7, .62, '#3F6BFF']].forEach(([px, py, col]) => { circle(c, w * px, h * py, h * .05, col); circle(c, w * px, h * py, h * .02, '#FFFFFF'); });
+      circle(c, w * .52, h * .52, h * .04, '#FFFFFF');
+      c.strokeStyle = '#FFE45C'; c.lineWidth = 2.5; c.setLineDash([6, 5]); c.beginPath(); c.moveTo(w * .52, h * .52); c.quadraticCurveTo(w * .7, h * .2, w * .9, h * .48); c.stroke(); c.setLineDash([]);
+    },
+    bowling(c, w, h) {
+      const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#2A1B5E'); g.addColorStop(1, '#0E1020'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      // lane
+      const lg = c.createLinearGradient(0, h * .3, 0, h); lg.addColorStop(0, '#C98B4E'); lg.addColorStop(1, '#F2C27D'); c.fillStyle = lg;
+      c.beginPath(); c.moveTo(w * .4, h * .3); c.lineTo(w * .6, h * .3); c.lineTo(w * .85, h); c.lineTo(w * .15, h); c.fill();
+      c.strokeStyle = 'rgba(90,50,20,.35)'; c.lineWidth = 1; for (let i = 1; i < 6; i++) { c.beginPath(); c.moveTo(w * (.4 + i * .033), h * .3); c.lineTo(w * (.15 + i * .117), h); c.stroke(); }
+      // pins
+      const pins = [[0, 0], [-1, 1], [1, 1], [-2, 2], [0, 2], [2, 2]];
+      pins.forEach(([dx, row]) => {
+        const px = w * .5 + dx * w * .022, py = h * (.3 - row * .045) + h * .02, s = h * .045;
+        c.fillStyle = '#FFFFFF'; c.beginPath(); c.ellipse(px, py, s * .35, s * .8, 0, 0, 7); c.fill(); circle(c, px, py - s * .9, s * .25, '#FFFFFF');
+        c.fillStyle = '#FF3B30'; c.fillRect(px - s * .3, py - s * .45, s * .6, s * .14);
+      });
+      // ball
+      const bx = w * .44, by = h * .78, r = h * .11; const bg = c.createRadialGradient(bx - r * .4, by - r * .4, 2, bx, by, r); bg.addColorStop(0, '#7D9BFF'); bg.addColorStop(1, '#1D2C7A'); c.fillStyle = bg; c.beginPath(); c.arc(bx, by, r, 0, 7); c.fill();
+      [[-.2, -.3], [.12, -.35], [-.02, -.05]].forEach(([dx, dy]) => circle(c, bx + dx * r, by + dy * r, r * .1, '#0E1020'));
+      c.strokeStyle = 'rgba(255,255,255,.5)'; c.lineWidth = 2; c.setLineDash([4, 6]); c.beginPath(); c.moveTo(bx, by - r); c.quadraticCurveTo(w * .4, h * .5, w * .5, h * .36); c.stroke(); c.setLineDash([]);
+    },
+    shark(c, w, h) {
+      const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#0FA3B1'); g.addColorStop(1, '#063A52'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      c.fillStyle = 'rgba(255,255,255,.07)'; for (let i = 0; i < 4; i++) { c.beginPath(); c.moveTo(w * (.2 + i * .25), 0); c.lineTo(w * (.3 + i * .25), 0); c.lineTo(w * (.12 + i * .25), h); c.lineTo(w * (.04 + i * .25), h); c.fill(); }
+      // shark body
+      c.save(); c.translate(w * .48, h * .55); const s = Math.min(w, h) * .0048; c.scale(s, s);
+      c.fillStyle = '#5E7A8C'; c.beginPath(); c.moveTo(-95, 0); c.quadraticCurveTo(-20, -40, 70, -6); c.quadraticCurveTo(84, 0, 70, 8); c.quadraticCurveTo(-20, 30, -95, 0); c.fill();
+      c.beginPath(); c.moveTo(-10, -26); c.lineTo(10, -62); c.lineTo(26, -20); c.fill();
+      c.beginPath(); c.moveTo(-92, 0); c.lineTo(-122, -32); c.lineTo(-112, 0); c.lineTo(-122, 30); c.fill();
+      c.beginPath(); c.moveTo(10, 14); c.lineTo(-6, 40); c.lineTo(28, 16); c.fill();
+      c.fillStyle = '#DCE6EC'; c.beginPath(); c.moveTo(-70, 6); c.quadraticCurveTo(0, 26, 70, 8); c.quadraticCurveTo(0, 14, -70, 6); c.fill();
+      circle(c, 52, -6, 3.2, '#0B0D14');
+      c.strokeStyle = '#FFFFFF'; c.lineWidth = 2; c.beginPath(); c.moveTo(62, 4); for (let i = 0; i < 4; i++) { c.lineTo(58 - i * 5, 8); c.lineTo(55 - i * 5, 4); } c.stroke();
+      c.restore();
+      // fish + bubbles
+      [[.82, .3], [.88, .38], [.78, .42]].forEach(([px, py]) => { c.fillStyle = '#FFB84D'; c.beginPath(); c.ellipse(w * px, h * py, 8, 4, 0, 0, 7); c.fill(); c.beginPath(); c.moveTo(w * px + 7, h * py); c.lineTo(w * px + 13, h * py - 4); c.lineTo(w * px + 13, h * py + 4); c.fill(); });
+      [[.2, .3, 4], [.24, .2, 3], [.18, .12, 2]].forEach(([px, py, r]) => { c.strokeStyle = 'rgba(255,255,255,.6)'; c.lineWidth = 1.5; c.beginPath(); c.arc(w * px, h * py, r, 0, 7); c.stroke(); });
+      c.fillStyle = '#04263A'; c.fillRect(0, h * .9, w, h * .1);
+    }
+  });
+  function draw(cv) {
+    if (cv.closest('[hidden]')) return;
+    const w = cv.clientWidth || 480, h = cv.clientHeight || 270, dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    (scenes[cv.dataset.art] || scenes.mini)(c, w, h);
+  }
+  function roundRect(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+  const cvs = document.querySelectorAll('canvas[data-art]');
+  const redraw = () => cvs.forEach(draw);
+  redraw();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(redraw);
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(redraw, 150); });
+})();
+</script>
+
+</body>
+</html>
